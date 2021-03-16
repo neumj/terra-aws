@@ -1,0 +1,13 @@
+name: terra-aws
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.7
+  - h5py
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - boto3
+  - yaml
