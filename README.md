@@ -6,7 +6,5 @@ AWS infrastructure builds.
 > $ conda env create -f environment.yml 
 
 ### For active development:  
-> $ conda activate terra-aws
-> $ pip install -e . --no-deps
-
-
+> $ conda activate terra-aws    
+> $ pip install -e . --no-deps    
