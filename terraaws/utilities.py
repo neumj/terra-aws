@@ -1,6 +1,7 @@
 import re
 import urllib.request as req
 import json
+import datetime
 from terraaws.session import BotoSession
 
 
@@ -59,10 +60,16 @@ class S3(BotoSession):
         """
         s3_object = self.session.client('s3').put_object(ACL = 'private',
                                                       Bucket = bucket_name,
-                                                      Body = (bytes(json.dumps(object).encode('UTF-8'))),
+                                                      Body = (bytes(json.dumps(object, default=self.datetime_handler).encode('UTF-8'))),
                                                       Key = object_key)
 
         return s3_object
+
+
+    def datetime_handler(self, x):
+        if isinstance(x, datetime.datetime):
+            return x.isoformat()
+        raise TypeError("Unknown type")
 
 
 class Network():
@@ -105,6 +112,47 @@ class Network():
             data = str(req.urlopen('http://checkip.dyndns.com/').read())
 
             return re.compile(r'Address: (\d+.\d+.\d+.\d+)').search(data).group(1)
+
+
+        def get_subnet_id(subnets_response, subnet_name):
+            """
+               DESCRIPTIOM.
+
+               Arguments:
+                None.
+
+               Returns:
+                None.
+
+               Tips:
+                None.
+
+            """
+            for sn in subnets_response['Subnets']:
+                for t in sn['Tags']:
+                    if t['Value'] == subnet_name:
+                        return (sn['SubnetId'])
+
+
+        def get_securitygroup_id(securitygroups_response, securitygroup_name):
+            """
+               DESCRIPTIOM.
+
+               Arguments:
+                None.
+
+               Returns:
+                None.
+
+               Tips:
+                None.
+
+            """
+            for sg in securitygroups_response['SecurityGroups']:
+                for t in sg['Tags']:
+                    if t['Value'] == securitygroup_name:
+                        return(sg['GroupId'])
+
 
 class JSON():
     """
