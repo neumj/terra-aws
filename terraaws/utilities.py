@@ -42,6 +42,7 @@ class S3(BotoSession):
 
         return bucket
 
+
     def put_object(self, object, bucket_name, object_key):
         """
            DESCRIPTIOM.
@@ -69,6 +70,7 @@ class Network():
             Class for network utilities.
 
         """
+
         def __init__(self, profile_name='default', region_name='us-west-2'):
             """
                DESCRIPTIOM.

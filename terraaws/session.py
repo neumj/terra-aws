@@ -5,6 +5,7 @@ class BotoSession():
         Class for boto3 AWS session.
 
     """
+
     def __init__(self, profile_name = 'default', region_name = 'us_west-2'):
         """
            The constructor for BotoSession class.
