@@ -42,5 +42,6 @@ define( 'DB_HOST', 'localhost' );
 cd /home/ec2-user
 sudo cp -r wordpress/* /var/www/html/
 sudo service httpd start
+sudo chown -R apache:apache /var/www/html
 
 /sudo service httpd restart
