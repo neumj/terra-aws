@@ -2,6 +2,9 @@
 sudo yum update
 sudo yum install -y mysql
 sudo yum install -y httpd
+sudo yum install php-xml
+sudo yum install php-mbstring
+sudo yum install php74rc-pecl-imagick
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
 sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
