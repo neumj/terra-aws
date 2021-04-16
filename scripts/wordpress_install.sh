@@ -1,12 +1,24 @@
 /updates and installs
 /https://greggborodaty.com/upgrading-to-https-with-wordpress-amazon-ec2-lets-encrypt-and-cloudflare/
-sudo yum update
+/sudo su -
+sudo yum update -y
+sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+sudo yum install -y httpd2
 sudo yum install -y mysql
-sudo yum install -y httpd
 sudo yum install php-xml
+sudo yum install php-gd
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
-sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+/groups and permissions
+sudo groupadd www
+sudo usermod -a -G www ec2-user
+sudo usermod -a -G www apache
+sudo chown -R ec2-user /var/www
+sudo chgrp -R www /var/www
+sudo chmod 2775 /var/www
+find /var/www -type d -exec sudo chmod 2775 {} +
+find /var/www -type f -exec sudo chmod 0664 {} +
 
 /env setup
 export MYSQL_HOST=<your-endpoint>
@@ -44,6 +56,7 @@ define( 'DB_HOST', 'localhost' );
 cd /home/ec2-user
 sudo cp -r wordpress/* /var/www/html/
 sudo service httpd start
+sudo systemctl enable httpd
 sudo chown -R apache:apache /var/www/html
 
 /sudo service httpd restart
